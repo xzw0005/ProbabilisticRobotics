@@ -136,4 +136,3 @@ show(p) # displays your answer
 # sensor_right = 1.0
 # p_move = 0.5
 # p = localize(colors,measurements,motions,sensor_right,p_move)
-# show(p) # displays your answer
