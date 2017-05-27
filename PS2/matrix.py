@@ -30,7 +30,7 @@ class matrix(object):
             self.dimy = dimy
             self.value = [[0 for row in range(dimy)] for col in range(dimx)]
             
-    def identify(self, dim):
+    def identity(self, dim):
         # Check if dimensions are Valid
         if dim < 1:
             raise ValueError, "Invalid size of matrix"
@@ -79,7 +79,8 @@ class matrix(object):
             res.zero(self.dimx, other.dimy)
             for i in range(self.dimx):
                 for j in range(other.dimy):
-                    pass
+                    for k in range(self.dimy):
+                        res.value[i][j] += self.value[i][k] * other.value[k][j]
             return res
         
     def transpose(self):
@@ -87,7 +88,7 @@ class matrix(object):
         res.zero(self.dimy, self.dimx)
         for i in range(self.dimx):
             for j in range(self.dimy):
-                res.value[i][j] = self.value[j][i]
+                res.value[j][i] = self.value[i][j]
         return res
     
     def Cholesky(self, ztol = 1e-5):
@@ -130,3 +131,4 @@ class matrix(object):
     
     def __repr__(self):
         return repr(self.value)
+#
