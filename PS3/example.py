@@ -15,12 +15,15 @@ N = 1000
 ##### Initialization #####
 p = []
 for i in range(N):
-    x = Robot.robot()
-    x.set_noise(0.05, 0.05, 5.0)
-    p.append(x)
+    r = Robot.robot()
+    r.set_noise(0.05, 0.05, 5.0)
+    p.append(r)
 
 T = 10
-for k in range(T):
+for t in range(T):
+    myrobot = myrobot.move(0.1, 5.0)
+    z = myrobot.sense()
+    
     p2 = []
     for i in range(N):
         p2.append(p[i].move(0.1, 5.0))

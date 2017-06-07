@@ -85,3 +85,12 @@ class robot(object):
     def __repr__(self):
         return '[x=%.6s y=%.6s orient=%.6s]' % (str(self.x), str(self.y), str(self.orientation))
     
+
+def eval(r, p):
+    sum = 0. 
+    for i in range(len(p)):         # Calculate Mean Squared Error
+        dx = (p[i].x - r.x + world_size/2.) % world_size - (world_size/2.)
+        dy = (p[i].y - r.y + world_size/2.) % world_size - world_size/2. 
+        err = math.sqrt(dx**2 + dy**2)
+        sum += err 
+    return sum / float(len(p))
