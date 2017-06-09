@@ -41,34 +41,6 @@ def estimate_next_pos(measurement, OTHER=None):
     xy_estimate = (xp, yp)
     return xy_estimate, OTHER
 
-
-#     if not OTHER:
-#         opoint = (0.0, 0.0)
-#         theta = 0.0
-#     else:
-#         opoint = OTHER[0]
-#         theta = OTHER[1]
-#     cpoint = measurement
-#     delta_y = cpoint[1] - opoint[1]
-#     delta_x = cpoint[0] - opoint[0]
-#       
-#     beta = atan2(delta_y, delta_x)   
-#     db = distance_between(opoint, cpoint)
-#   
-#     turn_angle = beta - theta
-#     print "turn_angle: ", turn_angle
-#       
-#     heading = beta + turn_angle
-#     x_prime = cpoint[0] + db * cos(heading)
-#     y_prime = cpoint[1] + db * sin(heading)
-#       
-#     xy_estimate = (x_prime, y_prime)
-#     OTHER  = [cpoint, beta]
-#     # You must return xy_estimate (x, y), and OTHER (even if it is None) 
-#     # in this order for grading purposes.
-#     return xy_estimate, OTHER 
-
-
 def distance_between(point1, point2):
     x1, y1 = point1
     x2, y2 = point2 
