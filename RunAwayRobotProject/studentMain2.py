@@ -26,16 +26,12 @@ from math import *
 from matrix import * # Check the matrix.py tab to see how this works.
 import random
 
-def mean(lists):
-    sums = 0
-    for i in range(len(lists)):
-        sums += lists[i]
-    return sums/len(lists)
-
 def estimate_next_pos(measurement, OTHER = None):
     """Estimate the next (x, y) position of the wandering Traxbot
     based on noisy (x, y) measurements."""
 
+    # You must return xy_estimate (x, y), and OTHER (even if it is None) 
+    # in this order for grading purposes.
     if not OTHER:
         OTHER = robot()        
         OTHER.distance_history = []
@@ -54,12 +50,6 @@ def estimate_next_pos(measurement, OTHER = None):
     OTHER.distance_history = distance_history
     xy_estimate = (xp, yp)
     return xy_estimate, OTHER
-
-#this calculates the angle between 2 points using the law of cosines
-def angle_between(p1, p2):
-    x1,y1 = p1[0],p1[1]
-    x2,y2 = p2[0],p2[1]
-    return acos((x1*x2 + y1*y2) / (sqrt(x1**2 + y1**2) * sqrt(x2**2 + y2**2)))
 
 # A helper function you may find useful.
 def distance_between(point1, point2):
@@ -104,12 +94,13 @@ def naive_next_pos(measurement, OTHER = None):
 
 # This is how we create a target bot. Check the robot.py file to understand
 # How the robot class behaves.
-test_target = robot(2.1, 4.3, 0.5, 2*pi / 34.0, 1.5)
-measurement_noise = 0.05 * test_target.distance
-test_target.set_noise(0.0, 0.0, measurement_noise)
 
-# demo_grading(estimate_next_pos, test_target)
-
+# test_target = robot(2.1, 4.3, 0.5, 2*pi / 34.0, 1.5)
+# measurement_noise = 0.05 * test_target.distance
+# test_target.set_noise(0.0, 0.0, measurement_noise)
+# 
+# # demo_grading(estimate_next_pos, test_target)
+# 
 # succ = 0
 # for i in range(1000):
 #     succ += demo_grading(estimate_next_pos, test_target)

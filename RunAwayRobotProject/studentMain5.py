@@ -137,17 +137,17 @@ def naive_next_move(hunter_position, hunter_heading, target_measurement, max_dis
     distance = max_distance # full speed ahead!
     return turning, distance, OTHER
 
-target = robot(0.0, 10.0, 0.0, 2*pi / 30, 1.5)
-measurement_noise = 2.0*target.distance # VERY NOISY!!
-target.set_noise(0.0, 0.0, measurement_noise)
-
-hunter = robot(-10.0, -10.0, 0.0)
-
-# print demo_grading(hunter, target, naive_next_move)
-succ = 0
-for i in range(1000):
-    succ += demo_grading(hunter, target, next_move)
-print succ
+# target = robot(0.0, 10.0, 0.0, 2*pi / 30, 1.5)
+# measurement_noise = 2.0*target.distance # VERY NOISY!!
+# target.set_noise(0.0, 0.0, measurement_noise)
+# 
+# hunter = robot(-10.0, -10.0, 0.0)
+# 
+# # print demo_grading(hunter, target, naive_next_move)
+# succ = 0
+# for i in range(1000):
+#     succ += demo_grading(hunter, target, next_move)
+# print succ
 
 
 

@@ -25,7 +25,6 @@ from math import *
 from matrix import *
 import random
 
-
 def next_move(hunter_position, hunter_heading, target_measurement, max_distance, OTHER = None):
     # This function will be called after each time the target moves. 
 
@@ -52,12 +51,10 @@ def next_move(hunter_position, hunter_heading, target_measurement, max_distance,
     heading_to_target = get_heading(hunter_position, xy_estimate)
     turning = heading_to_target - hunter_heading
     distance = distance_between(hunter_position, xy_estimate)
-    if distance >= max_distance:
+    if distance_between(hunter_position, xy_estimate) >= max_distance:
         distance = max_distance
-        turning += pi / 6
-        
+        turning += pi / 6        
     return turning, distance, OTHER
-    
 
 def distance_between(point1, point2):
     """Computes distance between point1 and point2. Points are (x, y) pairs."""
@@ -147,12 +144,12 @@ def naive_next_move(hunter_position, hunter_heading, target_measurement, max_dis
 # target = robot(0.0, 10.0, 0.0, 2*pi / 30, 1.5)
 # measurement_noise = .05*target.distance
 # target.set_noise(0.0, 0.0, measurement_noise)
-#   
+#    
 # hunter = robot(-10.0, -10.0, 0.0)
-#  
+#   
 # # print demo_grading(hunter, target, next_move)
 # succ = 0
-# for i in range(10000):
+# for i in range(1000):
 #     succ += demo_grading(hunter, target, next_move)
 # print succ
 
