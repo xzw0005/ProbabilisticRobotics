@@ -26,20 +26,40 @@ from math import *
 from matrix import * # Check the matrix.py tab to see how this works.
 import random
 
-# This is the function you have to write. Note that measurement is a 
-# single (x, y) point. This function will have to be called multiple
-# times before you have enough information to accurately predict the
-# next position. The OTHER variable that your function returns will be 
-# passed back to your function the next time it is called. You can use
-# this to keep track of important information over time.
+def mean(lists):
+    sums = 0
+    for i in range(len(lists)):
+        sums += lists[i]
+    return sums/len(lists)
+
 def estimate_next_pos(measurement, OTHER = None):
     """Estimate the next (x, y) position of the wandering Traxbot
     based on noisy (x, y) measurements."""
 
-    # You must return xy_estimate (x, y), and OTHER (even if it is None) 
-    # in this order for grading purposes.
-    xy_estimate = (3.2, 9.1)
+    if not OTHER:
+        OTHER = robot()        
+        OTHER.distance_history = []
+    distance_history = OTHER.distance_history
+    dy = measurement[1] - OTHER.y
+    dx = measurement[0] - OTHER.x
+    beta = atan2(dy, dx)
+    distance = distance_between(measurement, OTHER.sense())
+    distance_history.append(distance)
+    mean_distance = sum(distance_history) * 1.0 / len(distance_history)
+    turning = beta - OTHER.heading
+    heading = beta + turning
+    xp = measurement[0] + mean_distance * cos(heading)
+    yp = measurement[1] + mean_distance * sin(heading)
+    OTHER = robot(measurement[0], measurement[1], beta)
+    OTHER.distance_history = distance_history
+    xy_estimate = (xp, yp)
     return xy_estimate, OTHER
+
+#this calculates the angle between 2 points using the law of cosines
+def angle_between(p1, p2):
+    x1,y1 = p1[0],p1[1]
+    x2,y2 = p2[0],p2[1]
+    return acos((x1*x2 + y1*y2) / (sqrt(x1**2 + y1**2) * sqrt(x2**2 + y2**2)))
 
 # A helper function you may find useful.
 def distance_between(point1, point2):
@@ -123,7 +143,7 @@ test_target = robot(2.1, 4.3, 0.5, 2*pi / 34.0, 1.5)
 measurement_noise = 0.05 * test_target.distance
 test_target.set_noise(0.0, 0.0, measurement_noise)
 
-demo_grading(naive_next_pos, test_target)
+demo_grading(estimate_next_pos, test_target)
 
 
 

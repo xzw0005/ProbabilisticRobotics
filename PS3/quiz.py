@@ -149,7 +149,6 @@ class robot:
         steering2 = random.gauss(steeringAngle, self.steering_noise)
         distance2 = random.gauss(distance, self.distance_noise)
         
-        
         theta = self.orientation
         beta = 1. * distance2 / self.length * tan(steeringAngle) # turning angle
         if abs(beta) < tolerance:
