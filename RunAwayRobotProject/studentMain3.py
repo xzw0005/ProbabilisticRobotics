@@ -99,7 +99,7 @@ def demo_grading(hunter_bot, target_bot, next_move_fcn, OTHER = None):
         target_position = (target_bot.x, target_bot.y)
         separation = distance_between(hunter_position, target_position)
         if separation < separation_tolerance:
-            print "You got it right! It took you ", ctr, " steps to catch the target."
+#             print "You got it right! It took you ", ctr, " steps to catch the target."
             caught = True
 
         # The target broadcasts its noisy measurement
@@ -119,8 +119,8 @@ def demo_grading(hunter_bot, target_bot, next_move_fcn, OTHER = None):
         target_bot.move_in_circle()
 
         ctr += 1            
-        if ctr >= 1000:
-            print "It took too many steps to catch the target."
+#         if ctr >= 1000:
+#             print "It took too many steps to catch the target."
     return caught
 
 def angle_trunc(a):
@@ -162,11 +162,15 @@ def naive_next_move(hunter_position, hunter_heading, target_measurement, max_dis
 # target = robot(0.0, 10.0, 0.0, 2*pi / 30, 1.5)
 # measurement_noise = .05*target.distance
 # target.set_noise(0.0, 0.0, measurement_noise)
-
+# 
 # hunter = robot(-10.0, -10.0, 0.0)
+# 
+# # print demo_grading(hunter, target, naive_next_move)
 
-# print demo_grading(hunter, target, naive_next_move)
-
+# succ = 0
+# for i in range(10000):
+#     succ += demo_grading(hunter, target, next_move)
+# print succ
 
 
 

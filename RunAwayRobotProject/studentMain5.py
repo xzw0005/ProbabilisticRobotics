@@ -4,11 +4,11 @@ Created on Jun 11, 2017
 @author: Xing Wang
 '''
 # ----------
-# Part Four
+# Part Five
 #
-# Again, you'll track down and recover the runaway Traxbot. 
-# But this time, your speed will be about the same as the runaway bot. 
-# This may require more careful planning than you used last time.
+# This time, the sensor measurements from the runaway Traxbot will be VERY 
+# noisy (about twice the target's stepsize). You will use this noisy stream
+# of measurements to localize and catch the target.
 #
 # ----------
 # YOUR JOB
@@ -18,20 +18,14 @@ Created on Jun 11, 2017
 # ----------
 # GRADING
 # 
-# Same as part 3. Again, try to catch the target in as few steps as possible.
+# Same as part 3 and 4. Again, try to catch the target in as few steps as possible.
 
 from robot import *
 from math import *
 from matrix import *
 import random
 
-
 def next_move(hunter_position, hunter_heading, target_measurement, max_distance, OTHER = None):
-    # This function will be called after each time the target moves. 
-
-    # The OTHER variable is a place for you to store any historical information about
-    # the progress of the hunt (or maybe some localization information). Your return format
-    # must be as follows in order to be graded properly.
     if not OTHER:
         OTHER = robot()        
         OTHER.distance_history = []
@@ -57,7 +51,6 @@ def next_move(hunter_position, hunter_heading, target_measurement, max_distance,
         turning += pi / 6
         
     return turning, distance, OTHER
-    
 
 def distance_between(point1, point2):
     """Computes distance between point1 and point2. Points are (x, y) pairs."""
@@ -69,7 +62,7 @@ def demo_grading(hunter_bot, target_bot, next_move_fcn, OTHER = None):
     """Returns True if your next_move_fcn successfully guides the hunter_bot
     to the target_bot. This function is here to help you understand how we 
     will grade your submission."""
-    max_distance = 0.98 * target_bot.distance # 0.98 is an example. It will change.
+    max_distance = 0.97 * target_bot.distance # 0.97 is an example. It will change.
     separation_tolerance = 0.02 * target_bot.distance # hunter must be within 0.02 step size to catch target
     caught = False
     ctr = 0
@@ -144,17 +137,17 @@ def naive_next_move(hunter_position, hunter_heading, target_measurement, max_dis
     distance = max_distance # full speed ahead!
     return turning, distance, OTHER
 
-# target = robot(0.0, 10.0, 0.0, 2*pi / 30, 1.5)
-# measurement_noise = .05*target.distance
-# target.set_noise(0.0, 0.0, measurement_noise)
-#   
-# hunter = robot(-10.0, -10.0, 0.0)
-#  
-# # print demo_grading(hunter, target, next_move)
-# succ = 0
-# for i in range(10000):
-#     succ += demo_grading(hunter, target, next_move)
-# print succ
+target = robot(0.0, 10.0, 0.0, 2*pi / 30, 1.5)
+measurement_noise = 2.0*target.distance # VERY NOISY!!
+target.set_noise(0.0, 0.0, measurement_noise)
+
+hunter = robot(-10.0, -10.0, 0.0)
+
+# print demo_grading(hunter, target, naive_next_move)
+succ = 0
+for i in range(1000):
+    succ += demo_grading(hunter, target, next_move)
+print succ
 
 
 
